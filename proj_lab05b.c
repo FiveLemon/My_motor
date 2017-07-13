@@ -78,10 +78,10 @@ CTRL_Handle ctrlHandle;
 #endif
 HAL_Handle halHandle;
 
-PROCTRL_Obj  MyProcessCtrl;
-PROCTRL_Handle proctrlHandle;
+//PROCTRL_Obj  MyProcessCtrl;
+//PROCTRL_Handle proctrlHandle;
 
-/*
+
 PCA955x_Handle pca955xHandle;
 PCA955x_Obj pca9555;
 
@@ -97,7 +97,7 @@ OLED_Obj OLED;
 DECODER_Handle QPdecHandle;
 DECODER_Obj QPdecoder;
 
-*/
+
 
 uint32_t DispData;
 
@@ -199,7 +199,7 @@ void main(void)
   //PROCTRL_setHalHandle(proctrlHandle, halHandle);
 
   //PROCTRL_setParams(proctrlHandle);
-/*
+
   pca955xHandle = PCA955x_Init(&pca9555,sizeof(pca9555));
   PCA955x_setI2cHandle(pca955xHandle,halHandle->i2cHandle);
 
@@ -220,7 +220,7 @@ void main(void)
 
   QPdecHandle = DECODER_Init(&QPdecoder,sizeof(QPdecoder));
   DECODER_setSpiHandle(QPdecHandle,halHandle->spiAHandle);
-*/
+
 
   // check for errors in user parameters
   USER_checkForErrors(&gUserParams);
@@ -252,7 +252,7 @@ void main(void)
   //getData[1] = 0x0f | HAL_I2c_Pca9555_RdData(halHandle,0x01);
 //  HAL_I2c_Pca9555_WrData(halHandle,0x02,0x58);
 //  HAL_I2c_Pca9555_WrData(halHandle,0x02,0x5c);
-/*
+
   PCA955x_Configure(pca955xHandle, PCA955x_PortNum_Port0, 0x00);
   PCA955x_Configure(pca955xHandle, PCA955x_PortNum_Port1, 0xff);
   PCA955x_WriteCommand(pca955xHandle, PCA955x_PortNum_Port0, 0x50);
@@ -287,7 +287,7 @@ void main(void)
   LDC161x_writeConfig(ldc161xHandle_b);
   LDC161x_setMuxConfig(ldc161xHandle_b->ldcHandle,0x020c);
   LDC161x_writeMuxConfig(ldc161xHandle_b);
-*/
+
 
 
   // initialize the controller
@@ -396,9 +396,9 @@ void main(void)
         //OLED_setPos(oledHandle,0,6);
        // OLED_ShowNum(oledHandle, OLED_FontSize_16, DispData, 0x9);
 
-        //DECODER_readReg(proctrlHandle->QPdecHandle,&DispData);
-        //OLED_setPos(proctrlHandle->oledHandle,0,2);
-        //OLED_ShowNum(proctrlHandle->oledHandle, OLED_FontSize_16, DispData, 10);
+        DECODER_readReg(QPdecHandle,&DispData);
+        OLED_setPos(oledHandle,0,2);
+        OLED_ShowNum(oledHandle, OLED_FontSize_16, DispData, 10);
 
 
 
